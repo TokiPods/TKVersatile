@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'TKVersatile_Example' do
+  pod 'TKVersatile', :path => '../'
+
+  target 'TKVersatile_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
