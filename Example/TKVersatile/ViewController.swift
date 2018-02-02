@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TKVersatile
 
 class ViewController: UIViewController {
 

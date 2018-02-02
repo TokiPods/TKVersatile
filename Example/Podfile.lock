@@ -1,0 +1,20 @@
+PODS:
+  - TKVersatile (0.1.3):
+    - TKVersatile/TKCyclicView (= 0.1.3)
+    - TKVersatile/TKTransparentNavigationBarViewController (= 0.1.3)
+  - TKVersatile/TKCyclicView (0.1.3)
+  - TKVersatile/TKTransparentNavigationBarViewController (0.1.3)
+
+DEPENDENCIES:
+  - TKVersatile (from `../`)
+
+EXTERNAL SOURCES:
+  TKVersatile:
+    :path: ../
+
+SPEC CHECKSUMS:
+  TKVersatile: e99654c4cdcbcec1ed2b493e0fe39a2c23b14c37
+
+PODFILE CHECKSUM: e371d10c693e69aba9ce05e3a9bd5892cd40f263
+
+COCOAPODS: 1.4.0
