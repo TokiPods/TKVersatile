@@ -18,6 +18,8 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'TKVersatile'
+pod 'TKVersatile/TKCyclicView' #轮播图
+pod 'TKVersatile/TKTransparentNavigationBarViewController' #透明导航栏的视图控制器，内置切换动画
 ```
 
 ## Author
