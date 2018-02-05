@@ -17,6 +17,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mIF-VS-aiz">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.1535094789" green="0.36886678649999999" blue="0.38744737689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="FC8-h1-3Wy" kind="relationship" relationship="rootViewController" id="D99-0G-sRo"/>
@@ -26,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-643" y="221"/>
         </scene>
-        <!--Transparent Navigation Bar View Controller-->
+        <!--View Controller-->
         <scene sceneID="dM0-pt-wDu">
             <objects>
-                <viewController id="FC8-h1-3Wy" customClass="TKTransparentNavigationBarViewController" customModule="TKVersatile" sceneMemberID="viewController">
+                <viewController id="FC8-h1-3Wy" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7e-kw-EK2"/>
                         <viewControllerLayoutGuide type="bottom" id="g3p-cm-xFd"/>
@@ -46,7 +47,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.75422025926615277" green="1" blue="0.18403216298729386" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="heE-Mo-nPZ" firstAttribute="top" secondItem="L7e-kw-EK2" secondAttribute="bottom" constant="100" id="0LU-Nv-eAq"/>
                             <constraint firstItem="heE-Mo-nPZ" firstAttribute="centerX" secondItem="Hey-0R-tzQ" secondAttribute="centerX" id="dkP-WS-2Ym"/>
@@ -75,7 +76,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.81796470207253891" green="0.31343877801147496" blue="0.21302678690615229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WXa-Up-tsd" firstAttribute="top" secondItem="6bY-iV-EW3" secondAttribute="bottom" id="Hu0-GJ-Nmm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WXa-Up-tsd" secondAttribute="trailing" id="mr3-HX-Se7"/>
