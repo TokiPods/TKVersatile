@@ -85,11 +85,15 @@ extension TKTransparentNavigationBarViewController {
 extension TKTransparentNavigationBarViewController : UINavigationControllerDelegate{
     
     open func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        alphaNavigationBar(progress: 0)
+        if viewController is TKTransparentNavigationBarViewController {
+            alphaNavigationBar(progress: 0)
+        }
     }
     
     open func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        alphaNavigationBar(progress: 0)
+        if viewController is TKTransparentNavigationBarViewController {
+            alphaNavigationBar(progress: 0)
+        }
     }
     
     open func navigationController(_ navigationController: UINavigationController,
