@@ -39,9 +39,6 @@ extension TKCyclicScrollView {
     
     func change(pageNumber: Int) {
         let x = bounds.size.width * CGFloat(pageNumber % numberOfPages)
-        print("currentPage", currentPage)
-        print("pageNumber", pageNumber)
-        print("x", x)
         setContentOffset(CGPoint(x: x, y: 0), animated: true)
     }
     
