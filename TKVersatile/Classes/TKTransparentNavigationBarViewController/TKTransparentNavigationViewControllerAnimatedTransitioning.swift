@@ -8,7 +8,7 @@
 import UIKit
 
 
-class TransparentNavigationViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
+class TKTransparentNavigationViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
     var method: UINavigationControllerOperation = .none
     
     init(method: UINavigationControllerOperation) {

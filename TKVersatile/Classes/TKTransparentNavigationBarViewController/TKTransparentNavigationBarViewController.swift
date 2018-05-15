@@ -102,7 +102,7 @@ extension TKTransparentNavigationBarViewController : UINavigationControllerDeleg
     }
     
     open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransparentNavigationViewControllerAnimatedTransitioning(method: operation)
+        return TKTransparentNavigationViewControllerAnimatedTransitioning(method: operation)
     }
     
 }
