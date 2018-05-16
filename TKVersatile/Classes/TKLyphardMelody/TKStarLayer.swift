@@ -84,25 +84,19 @@ public class TKStarLayer: CAShapeLayer {
 extension TKStarLayer {
     
     public func start() {
-        guard animation(forKey: kStarAnimationKey) == nil else {
-            return
-        }
+        guard animation(forKey: kStarAnimationKey) == nil else { return }
         add(TKFlickerAnimation(frequency: frequency, scale: scale), forKey: kStarAnimationKey)
     }
     
     public func pause() {
-        guard speed > 0.0 else {
-            return
-        }
+        guard speed > 0.0 else { return }
         let pausedTime = convertTime(CACurrentMediaTime(), from: nil)
         speed = 0.0
         timeOffset = pausedTime
     }
     
     public func resume() {
-        guard timeOffset > 0.0 else {
-            return
-        }
+        guard timeOffset > 0.0 else { return }
         let pausedTime = timeOffset
         speed = 1.0
         timeOffset = 0.0

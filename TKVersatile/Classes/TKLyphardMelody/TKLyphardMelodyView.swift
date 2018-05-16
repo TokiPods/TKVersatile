@@ -27,12 +27,14 @@ public class TKLyphardMelodyView: UIView {
 
 extension TKLyphardMelodyView {
     
+    /// 暂停动画
     public func pause() {
         starLayers.forEach { (starLayer) in
             starLayer.pause()
         }
     }
     
+    /// 继续动画
     public func resume() {
         starLayers.forEach { (starLayer) in
             starLayer.resume()

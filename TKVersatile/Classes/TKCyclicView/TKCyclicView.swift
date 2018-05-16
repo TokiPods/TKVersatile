@@ -114,6 +114,8 @@ extension TKCyclicView {
 extension TKCyclicView {
     
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard frame.size.width > 0 else { return }
+        
         let bannerScrollView = scrollView as! TKCyclicScrollView
         
         currentPage = Int(scrollView.contentOffset.x / frame.size.width)
