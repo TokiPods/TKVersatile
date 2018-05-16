@@ -9,12 +9,16 @@
 import UIKit
 import TKVersatile
 
-class CyclicViewController: TKTransparentNavigationBarViewController {
+class CyclicViewController: UIViewController {
 
-    @IBOutlet weak var cyclicView: TKCyclicView!
+    lazy var cyclicView: TKCyclicView = {
+        let temp = TKCyclicView()
+        return temp
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -22,7 +26,7 @@ class CyclicViewController: TKTransparentNavigationBarViewController {
         for i in 0..<3 {
             let item = TKCyclicItem(image: UIImage(named: String(format: "image_%d", i))!,
                                     event: { () in
-                                        print("=-=", i)
+                                        print("touch image : ", i)
             })
             cyclicItems.append(item)
         }
@@ -31,20 +35,17 @@ class CyclicViewController: TKTransparentNavigationBarViewController {
         cyclicView.autoScroll = true
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+}
+
+extension CyclicViewController {
+    
+    func setupUI() {
+        view.backgroundColor = UIColor.white
+        
+        view.addSubview(cyclicView)
+        cyclicView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview().inset(UIEdgeInsetsMake(50, 50, 50, 50))
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
