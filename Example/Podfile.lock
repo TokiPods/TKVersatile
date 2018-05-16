@@ -1,12 +1,12 @@
 PODS:
   - SnapKit (4.0.0)
-  - TKVersatile (0.1.5):
-    - TKVersatile/TKCyclicView (= 0.1.5)
-    - TKVersatile/TKLyphardMelodyView (= 0.1.5)
-    - TKVersatile/TKTransparentNavigationBarViewController (= 0.1.5)
-  - TKVersatile/TKCyclicView (0.1.5)
-  - TKVersatile/TKLyphardMelodyView (0.1.5)
-  - TKVersatile/TKTransparentNavigationBarViewController (0.1.5)
+  - TKVersatile (0.1.6):
+    - TKVersatile/TKCyclicView (= 0.1.6)
+    - TKVersatile/TKLyphardMelodyView (= 0.1.6)
+    - TKVersatile/TKTransparentNavigationBarViewController (= 0.1.6)
+  - TKVersatile/TKCyclicView (0.1.6)
+  - TKVersatile/TKLyphardMelodyView (0.1.6)
+  - TKVersatile/TKTransparentNavigationBarViewController (0.1.6)
 
 DEPENDENCIES:
   - SnapKit (~> 4.0)
@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  TKVersatile: 4f38a2169264566ad012cd44e0cc100867b0ee84
+  TKVersatile: 85823f2f98604f7bc969f489b41784749859b162
 
 PODFILE CHECKSUM: 01c14bf8e82f8c40132a5495c11ba8e98ae56baa
 
