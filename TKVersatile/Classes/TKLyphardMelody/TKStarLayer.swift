@@ -9,7 +9,7 @@ import UIKit
 
 public class TKStarLayer: CAShapeLayer {
     
-    private let kStarAnimationKey: String = "TKStarAnimationKey"
+    let kStarAnimationKey: String = "TKStarAnimationKey"
     
     /// 星星风格
     public var starStyle: TKStarPath.Style = .round {
