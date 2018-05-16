@@ -38,6 +38,10 @@ Pod::Spec.new do |s|
     transparentNavigationBar.source_files = 'TKVersatile/Classes/TKTransparentNavigationBarViewController/**/*'
   end
   
+  s.subspec 'TKLyphardMelodyView' do |lyphardMelody|
+      lyphardMelody.source_files = 'TKVersatile/Classes/TKLyphardMelody/**/*'
+  end
+  
   # s.resource_bundles = {
   #   'TKVersatile' => ['TKVersatile/Assets/*.png']
   # }
