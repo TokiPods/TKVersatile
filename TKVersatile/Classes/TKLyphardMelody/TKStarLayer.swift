@@ -21,7 +21,6 @@ public class TKStarLayer: CAShapeLayer {
     /// 星星位置、尺寸
     public override var frame: CGRect {
         didSet {
-            lineWidth = frame.size.width / 5
             path = TKStarPath(style: starStyle, size: frame.size).cgPath
         }
     }
@@ -33,8 +32,29 @@ public class TKStarLayer: CAShapeLayer {
         }
     }
     
-    /// 星星缩放比例
-    public var scale: Float = 0 {
+    /// 星星初始直径
+    public var fromDiameter: Float = 0 {
+        didSet {
+            restart()
+        }
+    }
+    
+    /// 星星目标直径
+    public var toDiameter: Float = 0 {
+        didSet {
+            restart()
+        }
+    }
+    
+    /// 星星初始透明度
+    public var fromOpacity: Float = 0 {
+        didSet {
+            restart()
+        }
+    }
+    
+    /// 星星目标透明度
+    public var toOpacity: Float = 0 {
         didSet {
             restart()
         }
@@ -48,35 +68,40 @@ public class TKStarLayer: CAShapeLayer {
         }
     }
     
-    
     /// 初始化星星图层
     ///
     /// - Parameters:
     ///   - starStyle: 星星风格
     ///   - frame: 星星位置、尺寸
     ///   - frequency: 星星闪烁频率
-    ///   - scale: 星星缩放比例
+    ///   - fromDiameter: 星星初始直径
+    ///   - toDiameter: 星星目标直径
+    ///   - fromOpacity: 星星初始透明度
+    ///   - toOpacity: 星星目标透明度
     ///   - color: 星星颜色
     public convenience init(starStyle: TKStarPath.Style,
-                     frame: CGRect,
-                     frequency: Float = 5,
-                     scale: Float = 0,
-                     color: CGColor = UIColor.white.cgColor) {
+                            frame: CGRect,
+                            frequency: Float = 5,
+                            fromDiameter: Float = 0,
+                            toDiameter: Float = 5,
+                            fromOpacity: Float = 0,
+                            toOpacity: Float = 0.6,
+                            color: CGColor = UIColor.white.cgColor) {
         self.init()
         
-        self.frame = frame
+        self.frame = CGRect(x: frame.midX - 0.5, y: frame.midY - 0.5, width: 1, height: 1)
         self.starStyle = starStyle
         self.frequency = frequency
-        self.scale = scale
+        self.fromDiameter = fromDiameter
+        self.toDiameter = toDiameter
+        self.fromOpacity = fromOpacity
+        self.toOpacity = toOpacity
         self.color = color
         
-        lineWidth = frame.size.width / 5
-     
-        path = TKStarPath(style: starStyle, size: frame.size).cgPath
+        path = TKStarPath(style: starStyle, size: self.frame.size).cgPath
         start()
         
         fillColor = color
-        strokeColor = color.copy(alpha: 0.5)
     }
     
 }
@@ -85,7 +110,10 @@ extension TKStarLayer {
     
     public func start() {
         guard animation(forKey: kStarAnimationKey) == nil else { return }
-        add(TKFlickerAnimation(frequency: frequency, scale: scale), forKey: kStarAnimationKey)
+        add(TKFlickerAnimationGroup(frequency: frequency, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
+                                    fromScale: fromDiameter, toScale: toDiameter,
+                                    fromOpacity: fromOpacity, toOpacity: toOpacity),
+            forKey: kStarAnimationKey)
     }
     
     public func pause() {

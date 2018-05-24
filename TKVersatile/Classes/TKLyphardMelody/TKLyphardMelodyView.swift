@@ -89,28 +89,31 @@ extension TKLyphardMelodyView {
                 let isRight = blockVerticalNumber+1 == config.blockVerticalDensity //右侧边缘
                 
                 for _ in 0..<config.starDensity {
-                    let starDiameter = random * config.starDiameterMaximum - (random - 1) * config.starDiameterMinimum
                     let starFlickerFrequency = random * config.starFlickerFrequencyMaximum - (random - 1) * config.starFlickerFrequencyMinimum
-                    let starScale = random * config.starFlickerScaleMaximum - (random - 1) * config.starFlickerScaleMinimum
+                    let starFromDiameter = random * config.starFromDiameterMaximum - (random - 1) * config.starFromDiameterMinimum
+                    let starToDiameter = random * config.starToDiameterMaximum - (random - 1) * config.starToDiameterMinimum
+                    let starFromAlpha = random * config.starFromAlphaMaximum - (random - 1) * config.starFromAlphaMinimum
+                    let starToAlpha = random * config.starToAlphaMaximum - (random - 1) * config.starToAlphaMinimum
                     
                     var tempBlockWidth = blockWidth
                     var tempBlockHeight = blockHeight
                     if isRight {
-                        tempBlockWidth -= starDiameter
-                        tempBlockWidth = min(tempBlockWidth, tempBlockWidth - (starScale - 1) * starDiameter / 2)
+                        tempBlockWidth -= max(starToDiameter, starToDiameter)
                     }
                     if isBottom {
-                        tempBlockHeight -= starDiameter
-                        tempBlockHeight = min(tempBlockHeight, tempBlockHeight - (starScale - 1) * starDiameter / 2)
+                        tempBlockHeight -= max(starToDiameter, starToDiameter)
                     }
                     
                     let starX: CGFloat = random * tempBlockWidth  + blockX
                     let starY: CGFloat = random * tempBlockHeight + blockY
                     
-                    let starLayer = TKStarLayer(starStyle: .round,
-                                                frame: CGRect(x: starX, y: starY, width: starDiameter, height: starDiameter),
+                    let starLayer = TKStarLayer(starStyle: config.starStyle,
+                                                frame: CGRect(x: starX, y: starY, width: starFromDiameter, height: starFromDiameter),
                                                 frequency: Float(starFlickerFrequency),
-                                                scale: Float(starScale),
+                                                fromDiameter: Float(starFromDiameter),
+                                                toDiameter: Float(starToDiameter),
+                                                fromOpacity: Float(starFromAlpha),
+                                                toOpacity: Float(starToAlpha),
                                                 color: config.starColor.cgColor)
                     
                     starLayers.append(starLayer)
