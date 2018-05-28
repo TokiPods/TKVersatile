@@ -11,7 +11,7 @@ import UIKit
 public class TKLyphardMelodyConfig {
     
     /// 星星风格
-    public var starStyle: TKStarPath.Style = .round
+    public var starStyle: TKStarStyle = .round
     
     /// 区块水平密度
     public var blockHorizontalDensity: Int = 3

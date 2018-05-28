@@ -12,7 +12,7 @@ public class TKStarLayer: CAShapeLayer {
     let kStarAnimationKey: String = "TKStarAnimationKey"
     
     /// 星星风格
-    public var starStyle: TKStarPath.Style = .round {
+    public var starStyle: round = .round {
         didSet {
             path = TKStarPath(style: starStyle, size: frame.size).cgPath
         }

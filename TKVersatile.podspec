@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   end
   
   s.subspec 'TKLyphardMelodyView' do |lyphardMelody|
-      lyphardMelody.source_files = 'TKVersatile/Classes/TKLyphardMelody/**/*'
+      lyphardMelody.source_files = 'TKVersatile/Classes/TKLyphardMelodyView/**/*'
   end
   
   # s.resource_bundles = {
