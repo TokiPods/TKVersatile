@@ -64,7 +64,6 @@ public class TKStarLayer: CAShapeLayer {
     public var color: CGColor = UIColor.white.cgColor {
         didSet {
             fillColor = color
-            strokeColor = color.copy(alpha: 0.5)
         }
     }
     
