@@ -49,7 +49,7 @@ class TKTransparentNavigationViewControllerAnimatedTransitioning: NSObject, UIVi
             }
             
             fromVc?.view.frame = CGRect(x: offset * width!, y: 0, width: width!, height: height!)
-            toVc?.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            toVc?.view.frame = CGRect(x: 0, y: 0, width: width!, height: height!)
             blackView.alpha = 0
         }) { (_) -> Void in
             blackView.removeFromSuperview()
