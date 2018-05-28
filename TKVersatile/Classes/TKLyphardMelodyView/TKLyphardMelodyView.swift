@@ -89,7 +89,7 @@ extension TKLyphardMelodyView {
                 let isRight = blockVerticalNumber+1 == config.blockVerticalDensity //右侧边缘
                 
                 for _ in 0..<config.starDensity {
-                    let starFlickerFrequency = random * config.starFlickerFrequencyMaximum - (random - 1) * config.starFlickerFrequencyMinimum
+                    let starFlickerDuration = random * config.starFlickerDurationMaximum - (random - 1) * config.starFlickerDurationMinimum
                     let starFromDiameter = random * config.starFromDiameterMaximum - (random - 1) * config.starFromDiameterMinimum
                     let starToDiameter = random * config.starToDiameterMaximum - (random - 1) * config.starToDiameterMinimum
                     let starFromAlpha = random * config.starFromAlphaMaximum - (random - 1) * config.starFromAlphaMinimum
@@ -109,7 +109,7 @@ extension TKLyphardMelodyView {
                     
                     let starLayer = TKStarLayer(starStyle: config.starStyle,
                                                 frame: CGRect(x: starX, y: starY, width: starFromDiameter, height: starFromDiameter),
-                                                frequency: Float(starFlickerFrequency),
+                                                durationTime: Float(starFlickerDuration),
                                                 fromDiameter: Float(starFromDiameter),
                                                 toDiameter: Float(starToDiameter),
                                                 fromOpacity: Float(starFromAlpha),

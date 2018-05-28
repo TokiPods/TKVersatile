@@ -40,10 +40,10 @@ public class TKLyphardMelodyConfig {
     /// 星星目标透明度放最大值
     public var starToAlphaMaximum: CGFloat = 0.6
     
-    /// 星星闪烁频率最小值(单位 次/s)
-    public var starFlickerFrequencyMinimum: CGFloat = 0.4
-    /// 星星闪烁频率最大值(单位 次/s)
-    public var starFlickerFrequencyMaximum: CGFloat = 0.5
+    /// 星星闪烁持续时间最小值(单位 s/次)
+    public var starFlickerDurationMinimum: CGFloat = 2
+    /// 星星闪烁持续时间最大值(单位 s/次)
+    public var starFlickerDurationMaximum: CGFloat = 2.5
     
     /// 星星颜色
     public var starColor: UIColor = UIColor.white

@@ -12,7 +12,7 @@ public class TKStarLayer: CAShapeLayer {
     let kStarAnimationKey: String = "TKStarAnimationKey"
     
     /// 星星风格
-    public var starStyle: round = .round {
+    public var starStyle: TKStarStyle = .round {
         didSet {
             path = TKStarPath(style: starStyle, size: frame.size).cgPath
         }
@@ -25,8 +25,8 @@ public class TKStarLayer: CAShapeLayer {
         }
     }
     
-    /// 星星闪烁频率
-    public var frequency: Float = 5 {
+    /// 星星闪烁持续时间
+    public var durationTime: Float = 5 {
         didSet {
             restart()
         }
@@ -73,15 +73,15 @@ public class TKStarLayer: CAShapeLayer {
     /// - Parameters:
     ///   - starStyle: 星星风格
     ///   - frame: 星星位置、尺寸
-    ///   - frequency: 星星闪烁频率
+    ///   - durationTime: 星星闪烁持续时间
     ///   - fromDiameter: 星星初始直径
     ///   - toDiameter: 星星目标直径
     ///   - fromOpacity: 星星初始透明度
     ///   - toOpacity: 星星目标透明度
     ///   - color: 星星颜色
-    public convenience init(starStyle: TKStarPath.Style,
+    public convenience init(starStyle: TKStarStyle,
                             frame: CGRect,
-                            frequency: Float = 5,
+                            durationTime: Float = 5,
                             fromDiameter: Float = 0,
                             toDiameter: Float = 5,
                             fromOpacity: Float = 0,
@@ -91,7 +91,7 @@ public class TKStarLayer: CAShapeLayer {
         
         self.frame = CGRect(x: frame.midX - 0.5, y: frame.midY - 0.5, width: 1, height: 1)
         self.starStyle = starStyle
-        self.frequency = frequency
+        self.durationTime = durationTime
         self.fromDiameter = fromDiameter
         self.toDiameter = toDiameter
         self.fromOpacity = fromOpacity
@@ -110,7 +110,7 @@ extension TKStarLayer {
     
     public func start() {
         guard animation(forKey: kStarAnimationKey) == nil else { return }
-        add(TKFlickerAnimationGroup(frequency: frequency, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
+        add(TKFlickerAnimationGroup(durationTime: durationTime, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
                                     fromScale: fromDiameter, toScale: toDiameter,
                                     fromOpacity: fromOpacity, toOpacity: toOpacity),
             forKey: kStarAnimationKey)
