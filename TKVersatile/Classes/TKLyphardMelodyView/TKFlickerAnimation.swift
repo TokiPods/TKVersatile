@@ -27,7 +27,7 @@ public class TKFlickerAnimationGroup: CAAnimationGroup {
         let opacityAnimation = TKFlickerOpacityAnimation(durationTime: durationTime, timingFunction: timingFunction, fromOpacity: fromOpacity, toOpacity: toOpacity)
         self.animations = [diameterAnimation, opacityAnimation]
         
-        self.duration = CFTimeInterval(1/durationTime) // 动画持续时间
+        self.duration = CFTimeInterval(durationTime) // 动画持续时间
         self.repeatCount = Float(Int.max) // 重复次数为无限
         self.autoreverses = true // 动画结束时执行逆动画
     }
@@ -77,10 +77,10 @@ public class TKFlickerOpacityAnimation: CABasicAnimation {
         
         // 动画选项设定
         self.timingFunction = timingFunction
-        self.duration = CFTimeInterval(1/durationTime) // 动画持续时间
+        self.duration = CFTimeInterval(durationTime) // 动画持续时间
         self.repeatCount = Float(Int.max) // 重复次数为无限
         self.autoreverses = true // 动画结束时执行逆动画
-        
+
         // 缩放倍数
         self.fromValue = fromOpacity // 开始时的倍率
         self.toValue = toOpacity // 结束时的倍率
