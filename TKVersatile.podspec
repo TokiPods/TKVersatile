@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TKVersatile'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Toki\'s versatile tools'
 
 # This description is used to generate tags and improve search results.
