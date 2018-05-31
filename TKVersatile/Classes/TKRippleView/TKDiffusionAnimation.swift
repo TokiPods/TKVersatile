@@ -23,8 +23,8 @@ public class TKDiffusionAnimationGroup: CAAnimationGroup {
                             fromOpacity: Float, toOpacity: Float) {
         self.init()
         
-        let diameterAnimation = TKFlickerScaleAnimation(durationTime: durationTime, timingFunction: timingFunction, fromScale: fromScale, toScale: toScale)
-        let opacityAnimation = TKFlickerOpacityAnimation(durationTime: durationTime, timingFunction: timingFunction, fromOpacity: fromOpacity, toOpacity: toOpacity)
+        let diameterAnimation = TKDiffusionScaleAnimation(durationTime: durationTime, timingFunction: timingFunction, fromScale: fromScale, toScale: toScale)
+        let opacityAnimation = TKDiffusionOpacityAnimation(durationTime: durationTime, timingFunction: timingFunction, fromOpacity: fromOpacity, toOpacity: toOpacity)
         self.animations = [diameterAnimation, opacityAnimation]
         
         self.duration = CFTimeInterval(durationTime) // 动画持续时间
