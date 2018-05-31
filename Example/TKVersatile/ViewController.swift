@@ -12,7 +12,8 @@ class ViewController: UITableViewController {
     
     let list: [(title: String, type: UIViewController.Type)] =
         [(title: "Cyclic", type: CyclicViewController.self),
-         (title: "LyphardMelody", type: LyphardMelodyViewController.self)]
+         (title: "LyphardMelody", type: LyphardMelodyViewController.self),
+         (title: "Repple", type: ReppleViewController.self)]
     let cellType = UITableViewCell.self
     
     override func viewDidLoad() {
