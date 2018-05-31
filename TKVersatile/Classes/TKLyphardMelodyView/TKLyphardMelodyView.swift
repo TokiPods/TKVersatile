@@ -89,11 +89,11 @@ extension TKLyphardMelodyView {
                 let isRight = blockVerticalNumber+1 == config.blockVerticalDensity //右侧边缘
                 
                 for _ in 0..<config.starDensity {
-                    let starFlickerDuration = random * config.starFlickerDurationMaximum - (random - 1) * config.starFlickerDurationMinimum
-                    let starFromDiameter = random * config.starFromDiameterMaximum - (random - 1) * config.starFromDiameterMinimum
-                    let starToDiameter = random * config.starToDiameterMaximum - (random - 1) * config.starToDiameterMinimum
-                    let starFromAlpha = random * config.starFromAlphaMaximum - (random - 1) * config.starFromAlphaMinimum
-                    let starToAlpha = random * config.starToAlphaMaximum - (random - 1) * config.starToAlphaMinimum
+                    let starFlickerDuration = random * (config.starFlickerDurationMaximum - config.starFlickerDurationMinimum) + config.starFlickerDurationMinimum
+                    let starFromDiameter = random * (config.starFromDiameterMaximum - config.starFromDiameterMinimum) + config.starFromDiameterMinimum
+                    let starToDiameter = random * (config.starToDiameterMaximum - config.starToDiameterMinimum) + config.starToDiameterMinimum
+                    let starFromAlpha = random * (config.starFromAlphaMaximum - config.starFromAlphaMinimum) + config.starFromAlphaMinimum
+                    let starToAlpha = random * (config.starToAlphaMaximum - config.starToAlphaMinimum) + config.starToAlphaMinimum
                     
                     var tempBlockWidth = blockWidth
                     var tempBlockHeight = blockHeight
