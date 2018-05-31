@@ -18,6 +18,8 @@ public class TKLyphardMelodyView: UIView {
     
     var starLayers: [TKStarLayer] = []
     
+    var blockMap: [[CGRect]] = [[CGRect]]()
+    
     public override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         refreshStarLayers()
@@ -47,7 +49,8 @@ extension TKLyphardMelodyView {
     
     func refreshStarLayers() {
         removeStarLayers()
-        starLayers = createStarLayers(frame: frame, config: config)
+        resetBlockMap(frame: frame, config: config)
+        starLayers = createStarLayers(blockList: blockMap.first!, config: config)
         addStarLayers()
     }
     
@@ -73,8 +76,8 @@ extension TKLyphardMelodyView {
         }
     }
     
-    func createStarLayers(frame: CGRect, config: TKLyphardMelodyConfig) -> [TKStarLayer] {
-        var starLayers: [TKStarLayer] = []
+    func resetBlockMap(frame: CGRect, config: TKLyphardMelodyConfig) {
+        var blockList_Zero = [CGRect]()
         
         let blockWidth: CGFloat = frame.width / CGFloat(config.blockHorizontalDensity)
         let blockHeight: CGFloat = frame.height / CGFloat(config.blockVerticalDensity)
@@ -85,40 +88,42 @@ extension TKLyphardMelodyView {
                 let blockX: CGFloat = blockWidth * CGFloat(blockHorizontalNumber)
                 let blockY: CGFloat = blockHeight * CGFloat(blockVerticalNumber)
                 
-                let isBottom = blockHorizontalNumber+1 == config.blockHorizontalDensity //下方边缘
-                let isRight = blockVerticalNumber+1 == config.blockVerticalDensity //右侧边缘
+                blockList_Zero.append(CGRect(x: blockX, y: blockY, width: blockWidth, height: blockHeight))
+            }
+        }
+        
+        blockMap.append(blockList_Zero)
+    }
+    
+    func createStarLayers(blockList: [CGRect], config: TKLyphardMelodyConfig) -> [TKStarLayer] {
+        var starLayers: [TKStarLayer] = []
+        
+        blockList.forEach { (block) in
+            for _ in 0..<config.starDensity {
+                let starFlickerDuration = random * (config.starFlickerDurationMaximum - config.starFlickerDurationMinimum) + config.starFlickerDurationMinimum
+                let starFromDiameter = random * (config.starFromDiameterMaximum - config.starFromDiameterMinimum) + config.starFromDiameterMinimum
+                let starToDiameter = random * (config.starToDiameterMaximum - config.starToDiameterMinimum) + config.starToDiameterMinimum
+                let starFromAlpha = random * (config.starFromAlphaMaximum - config.starFromAlphaMinimum) + config.starFromAlphaMinimum
+                let starToAlpha = random * (config.starToAlphaMaximum - config.starToAlphaMinimum) + config.starToAlphaMinimum
                 
-                for _ in 0..<config.starDensity {
-                    let starFlickerDuration = random * (config.starFlickerDurationMaximum - config.starFlickerDurationMinimum) + config.starFlickerDurationMinimum
-                    let starFromDiameter = random * (config.starFromDiameterMaximum - config.starFromDiameterMinimum) + config.starFromDiameterMinimum
-                    let starToDiameter = random * (config.starToDiameterMaximum - config.starToDiameterMinimum) + config.starToDiameterMinimum
-                    let starFromAlpha = random * (config.starFromAlphaMaximum - config.starFromAlphaMinimum) + config.starFromAlphaMinimum
-                    let starToAlpha = random * (config.starToAlphaMaximum - config.starToAlphaMinimum) + config.starToAlphaMinimum
-                    
-                    var tempBlockWidth = blockWidth
-                    var tempBlockHeight = blockHeight
-                    if isRight {
-                        tempBlockWidth -= max(starToDiameter, starToDiameter)
-                    }
-                    if isBottom {
-                        tempBlockHeight -= max(starToDiameter, starToDiameter)
-                    }
-                    
-                    let starX: CGFloat = random * tempBlockWidth  + blockX
-                    let starY: CGFloat = random * tempBlockHeight + blockY
-                    
-                    let starLayer = TKStarLayer(starStyle: config.starStyle,
-                                                frame: CGRect(x: starX, y: starY, width: starFromDiameter, height: starFromDiameter),
-                                                durationTime: Float(starFlickerDuration),
-                                                fromDiameter: Float(starFromDiameter),
-                                                toDiameter: Float(starToDiameter),
-                                                fromOpacity: Float(starFromAlpha),
-                                                toOpacity: Float(starToAlpha),
-                                                color: config.starColor.cgColor)
-                    
-                    starLayers.append(starLayer)
-                }
+                let minDiameter = CGFloat(min(starFromDiameter, starToDiameter))
+                let diffDiameter = CGFloat(fabsf(Float(starFromDiameter - starToDiameter)))
+                let tempBlockWidth = block.width - minDiameter - 2 * diffDiameter
+                let tempBlockHeight = block.height - minDiameter - 2 * diffDiameter
                 
+                let starX: CGFloat = random * tempBlockWidth  + block.minX
+                let starY: CGFloat = random * tempBlockHeight + block.minY
+                
+                let starLayer = TKStarLayer(starStyle: config.starStyle,
+                                            frame: CGRect(x: starX, y: starY, width: starFromDiameter, height: starFromDiameter),
+                                            durationTime: Float(starFlickerDuration),
+                                            fromDiameter: Float(starFromDiameter),
+                                            toDiameter: Float(starToDiameter),
+                                            fromOpacity: Float(starFromAlpha),
+                                            toOpacity: Float(starToAlpha),
+                                            color: config.starColor.cgColor)
+                
+                starLayers.append(starLayer)
             }
         }
         
