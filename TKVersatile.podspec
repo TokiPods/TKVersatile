@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TKVersatile'
-  s.version          = '0.2.0'
+  s.version          = '1.0.0'
   s.summary          = 'Toki\'s versatile tools'
 
 # This description is used to generate tags and improve search results.
@@ -40,6 +40,10 @@ Pod::Spec.new do |s|
   
   s.subspec 'TKLyphardMelodyView' do |lyphardMelody|
       lyphardMelody.source_files = 'TKVersatile/Classes/TKLyphardMelodyView/**/*'
+  end
+  
+  s.subspec 'TKRippleView' do |ripple|
+      ripple.source_files = 'TKVersatile/Classes/TKRippleView/**/*'
   end
   
   # s.resource_bundles = {
