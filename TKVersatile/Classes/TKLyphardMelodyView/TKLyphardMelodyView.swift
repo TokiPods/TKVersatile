@@ -10,27 +10,38 @@ import UIKit
 /// 星空
 public class TKLyphardMelodyView: UIView {
     
-    public var config: TKLyphardMelodyConfig = TKLyphardMelodyConfig() {
+    var playing: Bool = false {
         didSet {
-            refreshStarLayers()
+            if playing {
+                createStarLayers()
+            }
         }
     }
     
+    public var config: TKLyphardMelodyConfig = TKLyphardMelodyConfig()
+    
     var starLayers: [TKStarLayer] = []
-    
-    var blockMap: [[CGRect]] = [[CGRect]]()
-    
-    public override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        refreshStarLayers()
+    var currentStarCount: Int {
+        get {
+            return starLayers.count
+        }
     }
     
+    var blockMap: [[CGRect]] = [[CGRect]]()
+    var blockAddressMap: [TKStarLayer: CGRect] = [TKStarLayer: CGRect]()
 }
 
 extension TKLyphardMelodyView {
     
+    /// 开始动画
+    public func play() {
+        resetBlockMap()
+        playing = true
+    }
+    
     /// 暂停动画
     public func pause() {
+        playing = false
         starLayers.forEach { (starLayer) in
             starLayer.pause()
         }
@@ -38,6 +49,7 @@ extension TKLyphardMelodyView {
     
     /// 继续动画
     public func resume() {
+        playing = true
         starLayers.forEach { (starLayer) in
             starLayer.resume()
         }
@@ -47,36 +59,7 @@ extension TKLyphardMelodyView {
 
 extension TKLyphardMelodyView {
     
-    func refreshStarLayers() {
-        removeStarLayers()
-        resetBlockMap(frame: frame, config: config)
-        starLayers = createStarLayers(blockList: blockMap.first!, config: config)
-        addStarLayers()
-    }
-    
-    func removeStarLayers() {
-        starLayers.forEach { (starLayer) in
-            starLayer.removeFromSuperlayer()
-        }
-    }
-    
-    func addStarLayers() {
-        starLayers.forEach { (starLayer) in
-            layer.addSublayer(starLayer)
-        }
-    }
-    
-}
-
-extension TKLyphardMelodyView {
-    
-    var random: CGFloat {
-        get {
-            return CGFloat(arc4random() % 100) / 100
-        }
-    }
-    
-    func resetBlockMap(frame: CGRect, config: TKLyphardMelodyConfig) {
+    func resetBlockMap() {
         var blockList_Zero = [CGRect]()
         
         let blockWidth: CGFloat = frame.width / CGFloat(config.blockHorizontalDensity)
@@ -93,26 +76,41 @@ extension TKLyphardMelodyView {
         }
         
         blockMap.append(blockList_Zero)
+        for _ in 1...config.starDensityMaximum {
+            blockMap.append([CGRect]())
+        }
     }
     
-    func createStarLayers(blockList: [CGRect], config: TKLyphardMelodyConfig) -> [TKStarLayer] {
-        var starLayers: [TKStarLayer] = []
+    func createStarLayers() {
+        guard playing else { return }
         
-        blockList.forEach { (block) in
-            for _ in 0..<config.starDensity {
-                let starFlickerDuration = random * (config.starFlickerDurationMaximum - config.starFlickerDurationMinimum) + config.starFlickerDurationMinimum
-                let starFromDiameter = random * (config.starFromDiameterMaximum - config.starFromDiameterMinimum) + config.starFromDiameterMinimum
-                let starToDiameter = random * (config.starToDiameterMaximum - config.starToDiameterMinimum) + config.starToDiameterMinimum
-                let starFromAlpha = random * (config.starFromAlphaMaximum - config.starFromAlphaMinimum) + config.starFromAlphaMinimum
-                let starToAlpha = random * (config.starToAlphaMaximum - config.starToAlphaMinimum) + config.starToAlphaMinimum
+        let targetStarCount = currentStarCount == 0 ? (config.starCountMaximum + config.starCountMinimum)/2 : tk_random(with: config.starCountMaximum, and: config.starCountMinimum)
+        
+        while currentStarCount < targetStarCount {
+            print(currentStarCount, targetStarCount)
+            //从星星数为0的区块列表中, 获取一个随机的区块, 移动到目标星星数的区块列表
+            let blockList = blockMap.first ?? [CGRect]()
+            let blockListCount = blockList.count
+            let blockNumber = tk_random(with: blockListCount, closed: false)
+            let starDensity = tk_random(with: config.starDensityMaximum, and: config.starDensityMinimum)
+            move(fromBlockList: 0, index: blockNumber, toBlockList: starDensity)
+            
+            let block = blockList[blockNumber]
+            
+            for _ in 0..<starDensity {
+                let starFlickerDuration = tk_randomf(with: config.starFlickerDurationMaximum, and: config.starFlickerDurationMinimum)
+                let starFromDiameter = tk_randomf(with: config.starFromDiameterMaximum, and: config.starFromDiameterMinimum)
+                let starToDiameter = tk_randomf(with: config.starToDiameterMaximum, and: config.starToDiameterMinimum)
+                let starFromAlpha = tk_randomf(with: config.starFromAlphaMaximum, and: config.starFromAlphaMinimum)
+                let starToAlpha = tk_randomf(with: config.starToAlphaMaximum, and: config.starToAlphaMinimum)
                 
-                let minDiameter = CGFloat(min(starFromDiameter, starToDiameter))
+                let minDiameter = min(starFromDiameter, starToDiameter)
                 let diffDiameter = CGFloat(fabsf(Float(starFromDiameter - starToDiameter)))
                 let tempBlockWidth = block.width - minDiameter - 2 * diffDiameter
                 let tempBlockHeight = block.height - minDiameter - 2 * diffDiameter
                 
-                let starX: CGFloat = random * tempBlockWidth  + block.minX
-                let starY: CGFloat = random * tempBlockHeight + block.minY
+                let starX: CGFloat = tk_randomf(with: tempBlockWidth)  + block.minX
+                let starY: CGFloat = tk_randomf(with: tempBlockHeight) + block.minY
                 
                 let starLayer = TKStarLayer(starStyle: config.starStyle,
                                             frame: CGRect(x: starX, y: starY, width: starFromDiameter, height: starFromDiameter),
@@ -122,12 +120,51 @@ extension TKLyphardMelodyView {
                                             fromOpacity: Float(starFromAlpha),
                                             toOpacity: Float(starToAlpha),
                                             color: config.starColor.cgColor)
-                
+                starLayer.animationDelegate = self
+                layer.addSublayer(starLayer)
                 starLayers.append(starLayer)
+                blockAddressMap[starLayer] = block
             }
         }
-        
-        return starLayers
     }
     
+}
+
+extension TKLyphardMelodyView {
+    //从一个区块列表中 移动区块 到另一个区块列表
+    func move(fromBlockList currentListIndex: Int, index: Int, toBlockList targetListIndex: Int) {
+        //获取起始/目标区块列表
+        var currentBlockList = blockMap[currentListIndex]
+        var targetBlockList = blockMap[targetListIndex]
+        
+        //获取区块
+        let block = currentBlockList[index]
+        
+        //移除区块
+        currentBlockList.remove(at: index)
+        blockMap[currentListIndex] = currentBlockList
+        
+        //添加区块
+        targetBlockList.append(block)
+        blockMap[targetListIndex] = targetBlockList
+    }
+}
+
+extension TKLyphardMelodyView: TKStarLayerAnimationDelegate {    
+    public func animationDidStop(_ starLayer: TKStarLayer, anim: CAAnimation, finished flag: Bool) {
+        if let index = starLayers.index(of: starLayer) {
+            starLayers.remove(at: index)
+            if let block = blockAddressMap[starLayer] {
+                for i in 1..<blockMap.count {
+                    for j in 0..<blockMap[i].count {
+                        if block.equalTo(blockMap[i][j]) {
+                            move(fromBlockList: i, index: j, toBlockList: i-1)
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        createStarLayers()
+    }
 }

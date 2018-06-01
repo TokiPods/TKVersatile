@@ -7,9 +7,15 @@
 
 import UIKit
 
+public protocol TKStarLayerAnimationDelegate {
+    func animationDidStop(_ starLayer: TKStarLayer, anim: CAAnimation, finished flag: Bool)
+}
+
 public class TKStarLayer: CAShapeLayer {
     
     let kStarAnimationKey: String = "TKStarAnimationKey"
+    
+    public var animationDelegate: TKStarLayerAnimationDelegate?
     
     /// 星星风格
     public var starStyle: TKStarStyle = .round {
@@ -109,10 +115,11 @@ extension TKStarLayer {
     
     public func start() {
         guard animation(forKey: kStarAnimationKey) == nil else { return }
-        add(TKFlickerAnimationGroup(durationTime: durationTime, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
-                                    fromScale: fromDiameter, toScale: toDiameter,
-                                    fromOpacity: fromOpacity, toOpacity: toOpacity),
-            forKey: kStarAnimationKey)
+        let animate = TKFlickerAnimationGroup(durationTime: durationTime, timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
+                                                fromScale: fromDiameter, toScale: toDiameter,
+                                                fromOpacity: fromOpacity, toOpacity: toOpacity)
+        animate.delegate = self
+        add(animate, forKey: kStarAnimationKey)
     }
     
     public func pause() {
@@ -139,5 +146,14 @@ extension TKStarLayer {
     public func restart() {
         stop()
         start()
+    }
+}
+
+extension TKStarLayer: CAAnimationDelegate {
+    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if anim is TKFlickerAnimationGroup {
+            removeFromSuperlayer()
+            self.animationDelegate?.animationDidStop(self, anim: anim, finished: flag)
+        }
     }
 }

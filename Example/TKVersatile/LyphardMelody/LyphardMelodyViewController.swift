@@ -21,15 +21,24 @@ class LyphardMelodyViewController: UIViewController {
         setupUI()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        lyphardMelodyView.play()
+    }
+ 
+    override func viewDidDisappear(_ animated: Bool) {
+        lyphardMelodyView.pause()
+    }
 }
 
 extension LyphardMelodyViewController {
     func setupUI() {
         view.backgroundColor = UIColor.black
         
+        lyphardMelodyView.backgroundColor = UIColor.gray
         view.addSubview(lyphardMelodyView)
         lyphardMelodyView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(UIEdgeInsetsMake(50, 50, 50, 50))
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize(width: 200, height: 200))
         }
     }
 }
