@@ -11,7 +11,7 @@ import UIKit
 open class TKTransparentNavigationBarViewController: UIViewController {
 
     // MARK: - property
-    var navigationControllerCache: UINavigationController?
+    weak var navigationControllerCache: UINavigationController?
     var interactiveTransition : UIPercentDrivenInteractiveTransition!
     
     // MARK: - live cycle

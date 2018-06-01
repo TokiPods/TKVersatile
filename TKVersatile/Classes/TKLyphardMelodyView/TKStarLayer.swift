@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol TKStarLayerAnimationDelegate {
+public protocol TKStarLayerAnimationDelegate: NSObjectProtocol {
     func animationDidStop(_ starLayer: TKStarLayer, anim: CAAnimation, finished flag: Bool)
 }
 
@@ -15,7 +15,7 @@ public class TKStarLayer: CAShapeLayer {
     
     let kStarAnimationKey: String = "TKStarAnimationKey"
     
-    public var animationDelegate: TKStarLayerAnimationDelegate?
+    public weak var animationDelegate: TKStarLayerAnimationDelegate?
     
     /// 星星风格
     public var starStyle: TKStarStyle = .round {
