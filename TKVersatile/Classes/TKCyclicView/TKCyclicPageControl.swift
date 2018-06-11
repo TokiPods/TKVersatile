@@ -24,7 +24,7 @@ class TKCyclicPageControl: UIPageControl {
     
     override var currentPage: Int {
         willSet {
-            guard newValue >= 0 else { return }
+            guard newValue >= 0 && subviews.count > 0 else { return }
             subviews[newValue].addSubview(customPageDot)
         }
     }
