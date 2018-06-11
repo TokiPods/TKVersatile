@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         let list: [(title: String, type: UIViewController.Type)] =
             [(title: "Cyclic", type: CyclicViewController.self),
+             (title: "TransparentNavigationBar", type: TransparentNavigationBarViewController.self),
              (title: "LyphardMelody", type: LyphardMelodyViewController.self),
              (title: "Repple", type: ReppleViewController.self)]
         let displayCabinet = TKDisplayCabinetViewController.init(list: list)
