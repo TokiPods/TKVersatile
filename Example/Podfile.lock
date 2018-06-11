@@ -1,17 +1,19 @@
 PODS:
   - SnapKit (4.0.0)
-  - TKVersatile (1.0.0):
-    - TKVersatile/TKCyclicView (= 1.0.0)
-    - TKVersatile/TKLyphardMelodyView (= 1.0.0)
-    - TKVersatile/TKRippleView (= 1.0.0)
-    - TKVersatile/TKTransparentNavigationBarViewController (= 1.0.0)
-  - TKVersatile/TKCyclicView (1.0.0)
-  - TKVersatile/TKLyphardMelodyView (1.0.0)
-  - TKVersatile/TKRippleView (1.0.0)
-  - TKVersatile/TKTransparentNavigationBarViewController (1.0.0)
+  - TKDisplayCabinet (0.1.0)
+  - TKVersatile (1.1.1):
+    - TKVersatile/TKCyclicView (= 1.1.1)
+    - TKVersatile/TKLyphardMelodyView (= 1.1.1)
+    - TKVersatile/TKRippleView (= 1.1.1)
+    - TKVersatile/TKTransparentNavigationBarViewController (= 1.1.1)
+  - TKVersatile/TKCyclicView (1.1.1)
+  - TKVersatile/TKLyphardMelodyView (1.1.1)
+  - TKVersatile/TKRippleView (1.1.1)
+  - TKVersatile/TKTransparentNavigationBarViewController (1.1.1)
 
 DEPENDENCIES:
   - SnapKit (~> 4.0)
+  - TKDisplayCabinet
   - TKVersatile (from `../`)
 
 EXTERNAL SOURCES:
@@ -20,8 +22,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  TKVersatile: 289ec73050a5c764b888972a1be925643457548c
+  TKDisplayCabinet: 0faa0bdf75b4a297fe66b476c4e11ae6b0d839a0
+  TKVersatile: 22840ddb3e2bd4c2b63f23426c8416a7c67813e9
 
-PODFILE CHECKSUM: 01c14bf8e82f8c40132a5495c11ba8e98ae56baa
+PODFILE CHECKSUM: 5b5e918a1e9181e3823f42a877a96c2ec7bc9d0f
 
 COCOAPODS: 1.4.0

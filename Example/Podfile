@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'TKVersatile_Example' do
   pod 'TKVersatile', :path => '../'
+  pod 'TKDisplayCabinet'
   pod 'SnapKit', '~>4.0'
 
   target 'TKVersatile_Tests' do

@@ -373,11 +373,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TKVersatile_Example/Pods-TKVersatile_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TKDisplayCabinet/TKDisplayCabinet.framework",
 				"${BUILT_PRODUCTS_DIR}/TKVersatile/TKVersatile.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TKDisplayCabinet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TKVersatile.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

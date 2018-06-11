@@ -7,47 +7,18 @@
 //
 
 import UIKit
+import TKDisplayCabinet
 
-class ViewController: UITableViewController {
+class ViewController: UIViewController {
     
-    let list: [(title: String, type: UIViewController.Type)] =
-        [(title: "Cyclic", type: CyclicViewController.self),
-         (title: "LyphardMelody", type: LyphardMelodyViewController.self),
-         (title: "Repple", type: ReppleViewController.self)]
-    let cellType = UITableViewCell.self
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-    
-}
-
-extension ViewController {
-    
-    func setupUI() {
-        view.backgroundColor = UIColor.white
-        title = NSStringFromClass(self.classForCoder)
-        
-        self.tableView.register(cellType, forCellReuseIdentifier: NSStringFromClass(cellType))
-    }
-    
-}
-
-extension ViewController {
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(cellType), for: indexPath)
-        cell.textLabel?.text = list[indexPath.row].title
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(list[indexPath.row].type.init(), animated: true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let list: [(title: String, type: UIViewController.Type)] =
+            [(title: "Cyclic", type: CyclicViewController.self),
+             (title: "LyphardMelody", type: LyphardMelodyViewController.self),
+             (title: "Repple", type: ReppleViewController.self)]
+        let displayCabinet = TKDisplayCabinetViewController.init(list: list)
+        present(UINavigationController(rootViewController: displayCabinet), animated: true, completion: nil)
     }
     
 }
