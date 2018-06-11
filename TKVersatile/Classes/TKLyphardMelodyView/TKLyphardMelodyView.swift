@@ -87,7 +87,6 @@ extension TKLyphardMelodyView {
         let targetStarCount = currentStarCount == 0 ? (config.starCountMaximum + config.starCountMinimum)/2 : tk_random(with: config.starCountMaximum, and: config.starCountMinimum)
         
         while currentStarCount < targetStarCount {
-            print(currentStarCount, targetStarCount)
             //从星星数为0的区块列表中, 获取一个随机的区块, 移动到目标星星数的区块列表
             let blockList = blockMap.first ?? [CGRect]()
             let blockListCount = blockList.count
