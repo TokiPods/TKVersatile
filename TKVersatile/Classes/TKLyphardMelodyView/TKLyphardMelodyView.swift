@@ -29,18 +29,51 @@ public class TKLyphardMelodyView: UIView {
     
     var blockMap: [[CGRect]] = [[CGRect]]()
     var blockAddressMap: [TKStarLayer: CGRect] = [TKStarLayer: CGRect]()
+    
+    public init() {
+        super.init(frame: CGRect.zero)
+        
+        listenApplicationNotification()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+extension TKLyphardMelodyView {
+    
+    func listenApplicationNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+    }
+    
+    @objc func applicationDidEnterBackground() {
+        stop()
+    }
+
+    @objc func applicationWillEnterForeground() {
+        play()
+    }
+    
 }
 
 extension TKLyphardMelodyView {
     
     /// 开始动画
     public func play() {
+        resetStartLayers()
         resetBlockMap()
         playing = true
     }
     
     /// 暂停动画
     public func pause() {
+        guard playing else { return }
         playing = false
         starLayers.forEach { (starLayer) in
             starLayer.pause()
@@ -49,9 +82,17 @@ extension TKLyphardMelodyView {
     
     /// 继续动画
     public func resume() {
+        guard !playing else { return }
         playing = true
         starLayers.forEach { (starLayer) in
             starLayer.resume()
+        }
+    }
+ 
+    public func stop() {
+        playing = false
+        starLayers.forEach { (starLayer) in
+            starLayer.stop()
         }
     }
     
@@ -59,7 +100,15 @@ extension TKLyphardMelodyView {
 
 extension TKLyphardMelodyView {
     
+    func resetStartLayers() {
+        starLayers.forEach { (startLayer) in
+            startLayer.removeFromSuperlayer()
+        }
+        starLayers.removeAll()
+    }
+    
     func resetBlockMap() {
+        blockMap.removeAll()
         var blockList_Zero = [CGRect]()
         
         let blockWidth: CGFloat = frame.width / CGFloat(config.blockHorizontalDensity)
@@ -94,6 +143,7 @@ extension TKLyphardMelodyView {
             let starDensity = tk_random(with: config.starDensityMaximum, and: config.starDensityMinimum)
             move(fromBlockList: 0, index: blockNumber, toBlockList: starDensity)
             
+            guard blockNumber < blockList.count else { return }
             let block = blockList[blockNumber]
             
             for _ in 0..<starDensity {
@@ -133,10 +183,12 @@ extension TKLyphardMelodyView {
     //从一个区块列表中 移动区块 到另一个区块列表
     func move(fromBlockList currentListIndex: Int, index: Int, toBlockList targetListIndex: Int) {
         //获取起始/目标区块列表
+        guard currentListIndex < blockMap.count && targetListIndex < blockMap.count else { return }
         var currentBlockList = blockMap[currentListIndex]
         var targetBlockList = blockMap[targetListIndex]
         
         //获取区块
+        guard index < currentBlockList.count else { return }
         let block = currentBlockList[index]
         
         //移除区块
