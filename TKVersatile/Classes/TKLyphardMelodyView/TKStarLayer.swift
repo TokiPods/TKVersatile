@@ -151,7 +151,7 @@ extension TKStarLayer {
 
 extension TKStarLayer: CAAnimationDelegate {
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if anim is TKFlickerAnimationGroup {
+        if flag && anim is TKFlickerAnimationGroup {
             removeFromSuperlayer()
             self.animationDelegate?.animationDidStop(self, anim: anim, finished: flag)
         }
