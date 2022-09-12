@@ -30,6 +30,10 @@ Pod::Spec.new do |s|
 
   # s.source_files = 'TKVersatile/Classes/**/*'
 
+  s.subspec 'TKDisplayCabinet' do |displayCabinet|
+    displayCabinet.source_files = 'TKVersatile/Classes/DisplayCabinet/**/*'
+  end
+
   s.subspec 'TKCyclicView' do |cyclic|
     cyclic.source_files = 'TKVersatile/Classes/TKCyclicView/**/*'
   end
