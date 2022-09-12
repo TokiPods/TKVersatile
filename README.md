@@ -18,8 +18,11 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'TKVersatile'
+pod 'TKVersatile/TKDisplayCabinet' #控制器展示橱柜
 pod 'TKVersatile/TKCyclicView' #轮播图
 pod 'TKVersatile/TKTransparentNavigationBarViewController' #透明导航栏的视图控制器，内置切换动画
+pod 'TKVersatile/TKLyphardMelodyView' #星空图
+pod 'TKVersatile/TKRippleView' #波纹图
 ```
 
 ## Author
